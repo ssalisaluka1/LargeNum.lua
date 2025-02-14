@@ -51,9 +51,9 @@ function LargeNum:toString()
     local mantissa, exponent, sign = self.mantissa, self.exponent, self.sign
 
     -- Check if the exponent falls in the standard range
-    if exponent >= -7 and exponent < 12 then
+    if exponent >= -4 and exponent < 12 then
         -- Return the number in standard form with the correct sign
-        local result = string.format("%.12g", mantissa * 10 ^ exponent)
+        local result = string.format("%.12g", self.sign *( mantissa * 10 ^ exponent))
         return result  -- Remove trailing zeros
     end
     -- Construct the scientific notation with the correct sign
@@ -101,7 +101,7 @@ end
 
 function LargeNum.divide(a, b)
     if b.mantissa == 0 then
-        return "undefined"
+        error("Division by zero is not allowed.")
     end
     local mantissa = a.mantissa / b.mantissa
     local exponent = a.exponent - b.exponent
